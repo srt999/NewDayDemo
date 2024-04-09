@@ -2,9 +2,25 @@
 variable "resource_groups" {
   description = "(Required) The name of the Resource Groups to be provisioned. Changing this forces a new resource to be created."
   type = map(object({
-    name = string,
-    location = string }
+    name     = string,
+    location = string
+    }
   ))
+}
+
+variable "vnet" {
+  description = "(Required) Details of VNETS to be provisioned. Changing this forces a new resource to be created."
+  type        = any
+}
+
+variable "appsvcplan" {
+  description = "(Required) The name of the App service plan"
+  type        = any
+}
+
+variable "webapp" {
+  description = "(Required) The name of the App service plan"
+  type        = any
 }
 
 

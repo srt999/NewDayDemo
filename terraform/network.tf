@@ -1,28 +1,30 @@
 
-# # Create Virtual Network 
-# resource "azurerm_virtual_network" "virtual_network" {
-#   name                = "${var.resource_prefix}-vn-${local.virtual_network_resource_instance}"
-#   resource_group_name = local.resource_group_name
-#   location            = local.resource_group_location
-#   address_space       = var.address_space
-# }
+# Create Virtual Network 
+resource "azurerm_virtual_network" "this" {
+  name                = var.vnet.name
+  resource_group_name = azurerm_resource_group.this[var.vnet.rsg_key].name
+  location            = azurerm_resource_group.this[var.vnet.rsg_key].location
+  address_space       = var.vnet.address_space
+}
 
-# # Create Subnet 
-# resource "azurerm_subnet" "subnet" {
-#   name                                           = "${var.resource_prefix}-sub-${var.subnet_name}-${local.subnet_resource_instance}"
-#   resource_group_name                            = local.resource_group_name
-#   virtual_network_name                           = azurerm_virtual_network.virtual_network.name
-#   address_prefixes                               = var.address_prefixes
-#   service_endpoints                              = var.subnet_service_endpoints
+# Create Subnet 
+resource "azurerm_subnet" "this" {
+  for_each             = { for key, value in var.vnet.subnets: key => value }
+  name                 = each.value.name
+  resource_group_name  = azurerm_virtual_network.this.resource_group_name
+  virtual_network_name = azurerm_virtual_network.this.name
+  address_prefixes     = each.value.address_prefixes
+  service_endpoints    = lookup(each.value, "service_endpoints", [])
 
 
-#   dynamic "delegation" {
-#     for_each = var.service_delegation
-#     content {
-#       name = "delegation_name_${delegation.key}"
-#       service_delegation {
-#         name = delegation.value.name
-#       }
-#     }
-#   }
-# }
+  dynamic "delegation" {
+    for_each = lookup(each.value, "service_delegation", {})
+    content {
+      name = lookup(each.value, "delegation_name", null)
+      service_delegation {
+        name    = lookup(delegation.value, "name", null)
+        actions = lookup(delegation.value, "actions", null)
+      }
+    }
+  }
+}
