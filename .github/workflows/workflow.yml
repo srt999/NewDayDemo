@@ -39,8 +39,6 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
-
-
       # Run a terraform validate
       - name: Terraform Validate
         id: validate
@@ -52,4 +50,4 @@ jobs:
         id: plan
         # Run even if formatting fails
         if: success() || failure()
-        run: terraform plan -var-file='./environments/dev.tfvars'
+        run: terraform plan -var-file='./environments/dev.tfvars' -out="demoplan.tf"
