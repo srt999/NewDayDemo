@@ -52,4 +52,4 @@ jobs:
         id: plan
         # Run even if formatting fails
         if: success() || failure()
-        run: terraform plan -var-file ='./environments/dev.tfvars'
+        run: terraform plan -var-file='./environments/dev.tfvars'
