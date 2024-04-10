@@ -62,3 +62,7 @@ jobs:
         # Run even if formatting fails
         if: success() || failure()
         run: terraform plan -var-file='./environments/dev.tfvars' -out="demoplan.tf"
+
+      -  name: 'Terraform Apply'
+         id: apply
+         run: terraform apply -auto-approve "demoplan.tf"
