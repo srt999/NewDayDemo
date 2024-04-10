@@ -17,6 +17,9 @@ terraform {
     storage_account_name = "tfmstoragebcknd"
     container_name       = "terraform"
     key                  = "demo.tfstate"
+    use_oidc             = true
+    subscription_id      = var.subscriptionid
+    tenant_id            = var.tenantid
   }
 
 }
