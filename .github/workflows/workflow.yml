@@ -11,6 +11,10 @@ permissions:
   id-token: write
   contents: read
 
+env:
+    ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+    ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+    ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
 jobs:
   check-code:
     runs-on: ubuntu-latest
@@ -41,10 +45,6 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         working-directory: 'terraform'
         # Run a terraform fmt to check syntax
       - name: Terraform Format
