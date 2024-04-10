@@ -11,10 +11,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  TF_VAR_tenantid: ${{ secrets.ARM_TENANT_ID }}
-  TF_VAR_subscriptionid: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-
 jobs:
   check-code:
     runs-on: ubuntu-latest

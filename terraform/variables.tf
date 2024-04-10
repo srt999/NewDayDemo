@@ -23,16 +23,6 @@ variable "webapp" {
   type        = any
 }
 
-variable "tenantid" {
-  description = "(Required) The tenant id of the subscription"
-  type        = string
-}
-
-variable "subscriptionid" {
-  description = "(Required) The subscription id to deploy resources"
-  type        = string
-}
-
 # variable "subnet_name" {
 #   description = "(Required) The name of the Subnet"
 #   type        = string
