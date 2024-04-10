@@ -11,11 +11,11 @@ terraform {
       version = "3.90.0"
     }
   }
-  # backend "azurerm" {
-  #   resource_group_name  = "terraformrsg"
-  #   storage_account_name = "sarandemostgaccnt"
-  #   container_name       = "local"
-  #   key                  = "terraform.tfstate"
-  # }
+  backend "azurerm" {
+    resource_group_name  = "storage"
+    storage_account_name = "tfmstoragebcknd"
+    container_name       = "terraform"
+    key                  = "demo.tfstate"
+  }
 
 }
