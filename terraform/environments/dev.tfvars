@@ -45,8 +45,6 @@ appsvcplan = {
 webapp = {
   name    = "webapp-demo"
   rsg_key = "webapp"
-  os_type = "Linux"
-  sku     = "B1"
 }
 
 #TO DO - Add custom app config details
