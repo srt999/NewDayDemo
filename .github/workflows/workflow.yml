@@ -40,27 +40,28 @@ jobs:
     - name: Getmatrixobjects
       id: getmatrixobjects
       run: |-
-        $map = {
-            "EU" = [
-                {
-                    "givenName" = "John",
-                    "surname" = "Doe",
-                    "department" = "Finance"
-                },
-                {
-                    "givenName" = "John1",
-                    "surname" = "Doe1",
-                    "department" =  "Finance1"
-                }
-            ],
-            "US" = [
-                {
-                    "givenName" = "Jane",
-                    "surname" = "Doe",
-                    "department" = "Marketing"
-                }
-            ]
-             }
+        $map =  {
+          "EU":[
+              {
+                  "givenName" : "John",
+                  "surname" : "Doe",
+                  "department" : "Finance"
+              },
+              {
+                  "givenName" : "John1",
+                  "surname" : "Doe1",
+                  "department" : "Finance1"
+              }
+          ],
+          "US" : [
+              {
+                  "givenName" : "Jane",
+                  "surname" : "Doe",
+                  "department" : "Marketing"
+              }
+          ]
+              }
+           
         echo "::set-output name=matrix::$( echo "$map" )"
       shell: pwsh
  Deployment:
