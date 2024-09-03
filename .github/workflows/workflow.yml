@@ -19,13 +19,12 @@ jobs:
         - name: Set Dynamic Matrix
           id: setmatrix
           run: |
-             $map=[
-              {
+             $map={
                 name=test
                 env=testenv
                 server=testserver
               }
-             ]
+             
              echo "::set-output name=matrix::$map
 
     
