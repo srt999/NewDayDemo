@@ -19,12 +19,40 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+<<<<<<< HEAD
 #  GetBuildMetadata-GetBuildMetadata:
 #     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
 #     name: Get Build Metadata
 #     environment: development
+=======
+    job1:
+      runs-on: ubuntu-latest
+      outputs:
+         matrix: ${{ steps.setmatrix.outputs.matrix }}
+      steps:
+        - name: Set Dynamic Matrix
+          id: setmatrix
+          run: |
+             $map={
+                name=test
+                env=testenv
+                server=testserver
+              }
+             
+             echo "::set-output name=matrix::$map
+
+    
+# env:
+#     ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+#     ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+#     ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+# jobs:
+#   terraform:
+>>>>>>> b7fc76fbf629bae2c27a9a84dbd8f6a241549fc4
 #     runs-on: ubuntu-latest
 #     steps:
+<<<<<<< HEAD
 #     - name: Determining Build Number
 #       id: determineBuildNumber
 #       run: |-
@@ -100,3 +128,51 @@ jobs:
 #     steps:
 #         - name: Do something
 #           run: echo "Do something post deploy"
+=======
+#         # Checkout the repository to the GitHub Actions runner
+#       - name: Checkout
+#         uses:
+#           actions/checkout@v3
+
+#         # Azure Login
+#       - name: Azure login
+#         uses: azure/login@v2
+#         with:
+#             client-id: ${{ secrets.ARM_CLIENT_ID }}
+#             tenant-id: ${{ secrets.ARM_TENANT_ID }}
+#             subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+
+#         # Set up required version of terraform  
+#       - name: Setup Terraform
+#         uses: hashicorp/setup-terraform@v2
+#         with:
+#           terraform_version: '1.6.5'
+          
+#         # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+#       - name: Terraform Init
+#         id: init
+#         run: terraform init
+#         working-directory: 'terraform'
+
+#         # Run a terraform fmt to check syntax
+#       - name: Terraform Format
+#         id: fmt
+#         run: terraform fmt -check
+
+#         # Run a terraform validate
+#       - name: Terraform Validate
+#         id: validate
+#         if: success() || failure()
+#         run: terraform validate -no-color
+
+#         # Run a terraform plan
+#       - name: Terraform Plan
+#         id: plan
+#         if: success() || failure()
+#         run: terraform plan -var-file='./environments/dev.tfvars' -out="demoplan.tf"
+
+#          #Apply the plan to deploy resources
+#       -  name: 'Terraform Apply'
+#          id: apply
+#          run: terraform apply -auto-approve "demoplan.tf"
+>>>>>>> b7fc76fbf629bae2c27a9a84dbd8f6a241549fc4
