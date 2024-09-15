@@ -66,7 +66,6 @@ jobs:
   #Deploy auth - hardcoding values to be moved to environment variables
   auth_deployment:
     name: AUTH_deployment
-    runs-on: ubuntu-latest
     needs: 
       - BuildMatrix
      #if: ${{ inputs.API_NAME == 'auth' }}
@@ -74,11 +73,10 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        environment: ["west-eu"]
-    environment: ${{ matrix.environment }}
-    steps:
-      - name: Determining res
-        uses: ./.github/workflows/reusable.yml
-        with:
-          greet: ${{vars.secretvar}}
+        environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
+    uses: ./.github/workflows/reusable.yml
+    with:
+      target-env: ${{ matrix.environment }}
+    secrets: 
+      AZURE_CREDENTIALS : ${{ secrets[vars.secretvar] }}
 
