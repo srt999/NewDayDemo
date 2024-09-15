@@ -1,103 +1,103 @@
-name: Saran
+# name: Saran
 
-on:
-  push:
-  workflow_dispatch:
-    inputs:
-      regionName:
-            description: 'The region to deploy to'
-            required: true
-            type: choice
-            options:
-              - US
-              - EU
-              - AU
-              - APAC
+# on:
+#   push:
+#   workflow_dispatch:
+#     inputs:
+#       regionName:
+#             description: 'The region to deploy to'
+#             required: true
+#             type: choice
+#             options:
+#               - US
+#               - EU
+#               - AU
+#               - APAC
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.ref }}
+#   cancel-in-progress: true
 
-jobs:
-#  GetBuildMetadata-GetBuildMetadata:
+# jobs:
+# #  GetBuildMetadata-GetBuildMetadata:
+# #     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+# #     name: Get Build Metadata
+# #     environment: development
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #     - name: Determining Build Number
+# #       id: determineBuildNumber
+# #       run: |-
+# #          $buildId = "1.0"
+# #       shell: pwsh
+#  BuildMatrix:
 #     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
-#     name: Get Build Metadata
-#     environment: development
+#     name: Get matrix objects
 #     runs-on: ubuntu-latest
+#     outputs:
+#       matrix: ${{ steps.getmatrixobjects.matrix }}
 #     steps:
-#     - name: Determining Build Number
-#       id: determineBuildNumber
+#     - name: Getmatrixobjects
+#       id: getmatrixobjects
 #       run: |-
-#          $buildId = "1.0"
-#       shell: pwsh
- BuildMatrix:
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Get matrix objects
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.getmatrixobjects.matrix }}
-    steps:
-    - name: Getmatrixobjects
-      id: getmatrixobjects
-      run: |-
-        $map =  {
-          "EU":[
-              {
-                  "givenName" : "John",
-                  "surname" : "Doe",
-                  "department" : "Finance"
-              },
-              {
-                  "givenName" : "John1",
-                  "surname" : "Doe1",
-                  "department" : "Finance1"
-              }
-          ],
-          "US" : [
-              {
-                  "givenName" : "Jane",
-                  "surname" : "Doe",
-                  "department" : "Marketing"
-              }
-          ]
-              }
+#         $map =  {
+#           EU: [
+#               {
+#                   "givenName" : "John",
+#                   "surname" : "Doe",
+#                   "department" : "Finance"
+#               },
+#               {
+#                   "givenName" : "John1",
+#                   "surname" : "Doe1",
+#                   "department" : "Finance1"
+#               }
+#           ],
+#           US : [
+#               {
+#                   "givenName" : "Jane",
+#                   "surname" : "Doe",
+#                   "department" : "Marketing"
+#               }
+#           ]
+#               }
            
-        echo "::set-output name=matrix::$( echo "$map" )"
-      shell: pwsh
- Deployment:
-    name: AppDeployment
-    # needs: GetBuildMetadata-GetBuildMetadata
-    runs-on: ubuntu-latest
-    strategy:
-        fail-fast: false
-        max-parallel: 1
-        matrix:
-         environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
-      
-    environment: ${{ matrix.environment }}
-    steps:
-        - name: Do something
-          run: echo "Do something"
-        - name : Do something CREDS
-          run: echo map[${{ github.event.inputs.regionName }}].creds
-        - name : Do something AGENT
-          run: echo map[${{ github.event.inputs.regionName }}].agent 
-#  PostDeploy:
-#     name: Post PostDeploy
-#     needs: 
-#       # - GetBuildMetadata-GetBuildMetadata
-#       - Deployment
+#         echo "::set-output name=matrix::$( echo "$map" )"
+#       shell: pwsh
+#  Deployment:
+#     name: AppDeployment
+#     # needs: GetBuildMetadata-GetBuildMetadata
 #     runs-on: ubuntu-latest
 #     strategy:
 #         fail-fast: false
+#         max-parallel: 1
 #         matrix:
-#           environment:
-#             - development
-#             - qa
-#             - cat
-#             - uat
+#          environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
+      
 #     environment: ${{ matrix.environment }}
-    
 #     steps:
 #         - name: Do something
-#           run: echo "Do something post deploy"
+#           run: echo "Do something"
+#         - name : Do something CREDS
+#           run: echo map[${{ github.event.inputs.regionName }}].creds
+#         - name : Do something AGENT
+#           run: echo map[${{ github.event.inputs.regionName }}].agent 
+# #  PostDeploy:
+# #     name: Post PostDeploy
+# #     needs: 
+# #       # - GetBuildMetadata-GetBuildMetadata
+# #       - Deployment
+# #     runs-on: ubuntu-latest
+# #     strategy:
+# #         fail-fast: false
+# #         matrix:
+# #           environment:
+# #             - development
+# #             - qa
+# #             - cat
+# #             - uat
+# #     environment: ${{ matrix.environment }}
+    
+# #     steps:
+# #         - name: Do something
+# #           run: echo "Do something post deploy"
