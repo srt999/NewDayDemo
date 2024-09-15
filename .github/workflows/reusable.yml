@@ -5,6 +5,10 @@ on:
         description: terraform working directory
         type: string
         default: "."
+      target:
+        description: target deployment env
+        type: string
+        required: true
     secrets:
       AZURE_CREDENTIALS:
         required: true
@@ -12,9 +16,7 @@ on:
 jobs:
   compliance:
    runs-on: ubuntu-latest
-   defaults:
-      run:
-        working-directory: "."
+   environment: ${{inputs.target}}
    steps:
     - name: checkout
       uses: actions/checkout@v4.1.0
@@ -22,3 +24,9 @@ jobs:
       run: echo ${{ inputs.greet }}
     - name: sens
       run: echo ${{ inputs.secrets.AZURE_CREDENTIALS }} | sed 's/./& /g'
+    - name: sens
+      env:
+         MATRIX_CONTEXT: ${{ toJson(matrix) }}
+      run: echo "$MATRIX_CONTEXT"
+    - name: varp
+      run: echo ${{ vars.demovar }} 
