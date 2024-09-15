@@ -20,8 +20,8 @@ jobs:
    steps:
     - name: checkout
       uses: actions/checkout@v4.1.0
-    - name: runit
-      run: echo ${{ inputs.greet }}
+    - name: Read var
+      run: echo ${{ vars.secretvar }}
     - name: sens
       run: echo ${{ secrets[vars.secretvar] }} | sed 's/./& /g'
     - name: sen3
