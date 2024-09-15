@@ -24,7 +24,7 @@ jobs:
       run: echo ${{ inputs.greet }}
     - name: sens
       run: echo ${{ inputs.secrets.AZURE_CREDENTIALS }} | sed 's/./& /g'
-    - name: sens
+    - name: sen3
       env:
          MATRIX_CONTEXT: ${{ toJson(matrix) }}
       run: echo "$MATRIX_CONTEXT"
