@@ -11,7 +11,7 @@ on:
         required: true
     secrets:
       AZURE_CREDENTIALS:
-        required: true
+        required: false
 
 jobs:
   compliance:
