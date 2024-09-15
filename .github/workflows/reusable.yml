@@ -23,7 +23,7 @@ jobs:
     - name: runit
       run: echo ${{ inputs.greet }}
     - name: sens
-      run: echo ${{ inputs.secrets.AZURE_CREDENTIALS }} | sed 's/./& /g'
+      run: echo ${{ secrets[inputs.secrets.AZURE_CREDENTIALS] }} | sed 's/./& /g'
     - name: sen3
       env:
          MATRIX_CONTEXT: ${{ toJson(matrix) }}
