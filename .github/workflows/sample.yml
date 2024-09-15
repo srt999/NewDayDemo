@@ -77,6 +77,6 @@ jobs:
     #environment: ${{matrix.environment}}
     uses: ./.github/workflows/reusable.yml
     with:
-      greet: $ {{vars.azure_credentials }}
+      greet: ${{vars.secretvar}}
     secrets:
-        AZURE_CREDENTIALS: ${{ secrets[vars.azure_credentials] }}
+        AZURE_CREDENTIALS: ${{ secrets[vars.secretvar] }}
