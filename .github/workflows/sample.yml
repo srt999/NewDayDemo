@@ -76,7 +76,7 @@ jobs:
         environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
     uses: ./.github/workflows/reusable.yml
     with:
-      target-env: ${{ matrix.environment }}
+      target: ${{ matrix.environment }}
     secrets: 
       AZURE_CREDENTIALS : ${{ secrets[vars.secretvar] }}
 
