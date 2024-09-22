@@ -65,6 +65,7 @@ jobs:
  
   auth_deployment:
     name: AUTH_deployment
+    runs-on: ubuntu-latest
     needs: 
       - BuildMatrix
      #if: ${{ inputs.API_NAME == 'auth' }}
@@ -73,13 +74,13 @@ jobs:
       max-parallel: 1
       matrix:
         environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
-      environment: matrix.environment
+    environment: matrix.environment
     steps:
       - name: setmgitrun
         run: | 
           config=${{split(matrix.environment)}}
           echo $config
-     shell: bash
+        shell: bash
 
     # uses: ./.github/workflows/reusable.yml
     # with:
