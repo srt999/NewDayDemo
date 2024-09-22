@@ -63,6 +63,18 @@ jobs:
           echo $matrix
       shell: bash
  
+  test:
+    runs-on: ${{ matrix.object.envRunner }}
+    strategy:
+      matrix:
+        object: ${{vars.regionconfig}}
+          #[{"envName":"dev", "envRunner":"ubuntu-latest"}, {"envName":"stg", "envRunner":"windows-latest"}, {"envName":"prd", "envRunner":"macos-latest"}]
+      fail-fast: true
+      max-parallel: 1
+    steps:
+      - run: |
+          echo ${{ matrix.object.envName }}
+
   auth_deployment:
     name: AUTH_deployment
     runs-on: ubuntu-latest
@@ -78,7 +90,7 @@ jobs:
     steps:
       - name: setmgitrun
         run: | 
-          config="echo ${{tojson(matrix.environment)}} | jq -c "
+          config=echo "${{tojson(matrix.environment)}}" | jq -c
           echo $config
         shell: bash
 
