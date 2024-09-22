@@ -78,7 +78,7 @@ jobs:
     steps:
       - name: setmgitrun
         run: | 
-          config=$(${{ matrix.environment }}.split)
+          config=$(split${{ matrix.environment }})
           echo $config
         shell: bash
 
