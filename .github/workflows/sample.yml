@@ -67,8 +67,7 @@ jobs:
     runs-on: ${{ matrix.object.envRunner }}
     strategy:
       matrix:
-        object: ${{vars.regionconfig}}
-          #[{"envName":"dev", "envRunner":"ubuntu-latest"}, {"envName":"stg", "envRunner":"windows-latest"}, {"envName":"prd", "envRunner":"macos-latest"}]
+        object: [{"envName":"dev", "envRunner":"ubuntu-latest"}, {"envName":"stg", "envRunner":"windows-latest"}, {"envName":"prd", "envRunner":"macos-latest"}]
       fail-fast: true
       max-parallel: 1
     steps:
