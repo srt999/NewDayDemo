@@ -18,15 +18,7 @@ jobs:
    runs-on: ubuntu-latest
    environment: ${{inputs.target}}
    steps:
-    - name: checkout
-      uses: actions/checkout@v4.1.0
-    - name: Read var
-      run: echo ${{ vars.secretvar }}
-    - name: sens
-      run: echo ${{ secrets[vars.secretvar] }} | sed 's/./& /g'
-    - name: sen3
-      env:
-         MATRIX_CONTEXT: ${{ toJson(matrix) }}
-      run: echo "$MATRIX_CONTEXT"
-    - name: varp
-      run: echo ${{ vars.demovar }} 
+   - name: dummy
+     uses: ./.github/workflows/nested.yml
+     with:
+       target: ${{inputs.target}}
