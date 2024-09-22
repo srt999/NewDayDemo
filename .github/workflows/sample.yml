@@ -74,11 +74,7 @@ jobs:
       max-parallel: 1
       matrix:
         environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
-<<<<<<< HEAD
     environment: ${{ matrix.environment }}
-=======
-    environment: matrix.environment
->>>>>>> 8d989f8df7280be12eb4f8724f6d19cb11903ca8
     steps:
       - name: setmgitrun
         run: | 
