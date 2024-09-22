@@ -62,8 +62,7 @@ jobs:
           echo "matrix=$(echo $config|jq -c [.${{env.region}}[]])" >> $GITHUB_OUTPUT
           echo $matrix
       shell: bash
-  
-  #Deploy auth - hardcoding values to be moved to environment variables
+ 
   auth_deployment:
     name: AUTH_deployment
     needs: 
@@ -74,8 +73,32 @@ jobs:
       max-parallel: 1
       matrix:
         environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
-    uses: ./.github/workflows/reusable.yml
-    with:
-      target: ${{ matrix.environment }}
-    secrets: inherit
+      environment: matrix.environment
+    steps:
+      - name: setmgitrun
+        run: | 
+          config=${{split(matrix.environment)}}
+          echo $config
+     shell: bash
+
+    # uses: ./.github/workflows/reusable.yml
+    # with:
+    #   target: ${{ matrix.environment }}
+    # secrets: inherit
+
+  #Deploy auth - hardcoding values to be moved to environment variables
+  # auth_deployment:
+  #   name: AUTH_deployment
+  #   needs: 
+  #     - BuildMatrix
+  #    #if: ${{ inputs.API_NAME == 'auth' }}
+  #   strategy:
+  #     fail-fast: false
+  #     max-parallel: 1
+  #     matrix:
+  #       environment: ${{ fromJson(needs.BuildMatrix.outputs.matrix) }}
+  #   uses: ./.github/workflows/reusable.yml
+  #   with:
+  #     target: ${{ matrix.environment }}
+  #   secrets: inherit
 

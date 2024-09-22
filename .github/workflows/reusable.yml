@@ -1,24 +1,24 @@
-on:
-  workflow_call:
-    inputs:
-      greet:
-        description: terraform working directory
-        type: string
-        default: "."
-      target:
-        description: target deployment env
-        type: string
-        required: true
-    secrets:
-      AZURE_CREDENTIALS:
-        required: false
+# on:
+#   workflow_call:
+#     inputs:
+#       greet:
+#         description: terraform working directory
+#         type: string
+#         default: "."
+#       target:
+#         description: target deployment env
+#         type: string
+#         required: true
+#     secrets:
+#       AZURE_CREDENTIALS:
+#         required: false
 
-jobs:
-  compliance:
-   runs-on: ubuntu-latest
-   environment: ${{inputs.target}}
-   steps:
-   - name: dummy
-     uses: ./.github/workflows/nested.yml
-     with:
-       target: ${{inputs.target}}
+# jobs:
+#   compliance:
+#    runs-on: ubuntu-latest
+#    environment: ${{inputs.target}}
+#    steps:
+#    - name: dummy
+#      uses: ./.github/workflows/nested.yml
+#      with:
+#        target: ${{inputs.target}}
