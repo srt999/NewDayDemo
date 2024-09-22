@@ -78,7 +78,7 @@ jobs:
     steps:
       - name: setmgitrun
         run: | 
-          config=${{tojson(matrix.environment).split}}
+          config="echo ${{tojson(matrix.environment)}} | jq -c "
           echo $config
         shell: bash
 
