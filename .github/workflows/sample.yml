@@ -76,6 +76,10 @@ jobs:
           echo ${{ matrix.object.envName }}
       - run: |
           echo ${{vars.demovar}}
+      - run: |
+          echo ${{needs.BuildMatrix.outputs.matrix}}
+      - run: |
+          echo dummy
   # auth_deployment:
   #   name: AUTH_deployment
   #   runs-on: ubuntu-latest
