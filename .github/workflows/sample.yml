@@ -51,13 +51,13 @@ jobs:
     name: Set matrix objects
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.setmatrixobjects.outputs.matrix }}
+      matrix: ${{ fromjson(steps.setmatrixobjects.outputs.matrix) }}
     steps:
     - name: setmatrixobjects
       id: setmatrixobjects
       #Below script is to set the matrix objects based on the variable regionconfig
       run: | 
-          config=${{vars.regionconfig}}
+          config=${{vars.region}}
           echo "matrix=$(echo $config|jq -c [.${{env.region}}])" >> $GITHUB_OUTPUT
           echo $matrix
       shell: bash
