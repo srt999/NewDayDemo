@@ -70,11 +70,12 @@ jobs:
         object: ${{fromjson(vars.REGION)}}
       fail-fast: true
       max-parallel: 1
+    environment: ${{ matrix.object.envName }}
     steps:
       - run: |
           echo ${{ matrix.object.envName }}
       - run: |
-          echo ${{needs.BuildMatrix.outputs.matrix}}
+          echo ${{vars.demovar}}
   # auth_deployment:
   #   name: AUTH_deployment
   #   runs-on: ubuntu-latest
