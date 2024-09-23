@@ -73,7 +73,7 @@ jobs:
       - run: |
           echo ${{ matrix.object.envName }}
       - run: |
-          echo ${{fromJson(needs.BuildMatrix.outputs.matrix)}}
+          echo ${{needs.BuildMatrix.outputs.matrix}}
   # auth_deployment:
   #   name: AUTH_deployment
   #   runs-on: ubuntu-latest
