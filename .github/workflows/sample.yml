@@ -64,6 +64,7 @@ jobs:
  
   test:
     runs-on: ${{ matrix.object.envRunner }}
+    needs: BuildMatrix
     strategy:
       matrix:
         object: ${{fromjson(vars.REGION)}}
