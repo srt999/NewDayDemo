@@ -88,11 +88,11 @@ jobs:
     steps:
       - name: setmgitrun
         run: | 
-          jformat= ${{tojson({needs.BuildMatrix.outputs.matrix)}}
+          jformat= ${{tojson(needs.BuildMatrix.outputs.matrix)}}
           echo $jformat
           config=echo $format | jq -c
           echo $config
-          jformat1= ${{fromjson({needs.BuildMatrix.outputs.matrix)}}
+          jformat1= ${{fromjson(needs.BuildMatrix.outputs.matrix)}}
           echo $jformat1
           config1=echo $format1 | jq -c
           echo $config1
