@@ -88,10 +88,14 @@ jobs:
     steps:
       - name: setmgitrun
         run: | 
-          jformat= ${{tojson(matrix.environment)}}
+          jformat= ${{tojson({needs.BuildMatrix.outputs.matrix)}}
           echo $jformat
           config=echo $format | jq -c
           echo $config
+          jformat1= ${{fromjson({needs.BuildMatrix.outputs.matrix)}}
+          echo $jformat1
+          config1=echo $format1 | jq -c
+          echo $config1
         shell: bash
 
   # dump_contexts_to_log:
