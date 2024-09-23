@@ -46,21 +46,21 @@ env:
   region: ${{ github.event.inputs.regionName || 'EU' }}
 jobs:
   
-  BuildMatrix:
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Set matrix objects
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.setmatrixobjects.outputs.matrix }}
-    steps:
-    - name: setmatrixobjects
-      id: setmatrixobjects
-      #Below script is to set the matrix objects based on the variable regionconfig
-      run: | 
-          config=${{vars.regionconfig}}
-          echo "matrix=$(echo $config|jq -c)" >> $GITHUB_OUTPUT
-          echo $matrix
-      shell: bash
+  # BuildMatrix:
+  #   # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  #   name: Set matrix objects
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     matrix: ${{ steps.setmatrixobjects.outputs.matrix }}
+  #   steps:
+  #   - name: setmatrixobjects
+  #     id: setmatrixobjects
+  #     #Below script is to set the matrix objects based on the variable regionconfig
+  #     run: | 
+  #         config=${{vars.regionconfig}}
+  #         echo "matrix=$(echo $config|jq -c)" >> $GITHUB_OUTPUT
+  #         echo $matrix
+  #     shell: bash
  
   test:
     runs-on: ${{ matrix.object.envRunner }}
@@ -72,7 +72,10 @@ jobs:
     steps:
       - run: |
           echo ${{ matrix.object.envName }}
-
+      - run: |
+          config=${{vars.regionconfig}}
+          echo "matrix=$(echo $config|jq -c)"
+          echo $matrix
   # auth_deployment:
   #   name: AUTH_deployment
   #   runs-on: ubuntu-latest
