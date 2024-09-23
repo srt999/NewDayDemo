@@ -62,6 +62,16 @@ jobs:
           echo $matrix
       shell: bash
  
+  test:
+    runs-on: ${{ matrix.object.envRunner }}
+    strategy:
+      matrix:
+        object: tojson(${{vars.REGIONCONFIG}})
+      fail-fast: true
+      max-parallel: 1
+    steps:
+      - run: |
+          echo ${{ matrix.object.envName }}
 
   # auth_deployment:
   #   name: AUTH_deployment
